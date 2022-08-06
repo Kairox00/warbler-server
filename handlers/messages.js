@@ -24,15 +24,23 @@ const create= async (req, res, next)=>{
 
 const get = async (req, res, next)=>{
     try {
-
+        let message = await db.Message.findById(req.params.message_id)
+        return res.status(200).send(message)
     }
     catch (err){
-
+        return next(err)
     }
 }
 
 const destroy = async (req, res, next)=>{
-    
+    try {
+        let message = await db.Message.findById(req.params.message_id)
+        await message.remove()
+        return res.status(200).send(message)
+    }
+    catch (err){
+        return next(err)
+    }
 }
 
-module.exports = {create}
+module.exports = {create, get, destroy}

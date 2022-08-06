@@ -1,10 +1,13 @@
 const express = require("express")
 const router = express.Router({ mergeParams: true})
 
-const {create} = require("../handlers/messages")
+const {create, get, destroy} = require("../handlers/messages")
 
 router.route("/")
-.get()
-.post(create)
+    .post(create)
+
+router.route("/:message_id")
+    .get(get)
+    .delete(destroy)
 
 module.exports = router
